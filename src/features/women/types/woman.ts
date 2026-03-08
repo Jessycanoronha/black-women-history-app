@@ -8,6 +8,9 @@ export type Woman = {
     birth?: string
     death?: string
     nationality?: string
+    image?: {
+      url: string
+    }
   }
 }
 
