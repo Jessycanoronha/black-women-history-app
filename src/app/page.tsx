@@ -1,16 +1,18 @@
-import { getWomen } from "@/features/women/services/womenApi"
-import { Woman } from "@/features/women/types/woman"
+import { Container, Typography } from "@mui/material"
+import WomenGrid from "./components/WomenGrid/WomenGrid"
 
-export default async function Home() {
-  const women: Woman[] = await getWomen()
-
+export default function Home() {
   return (
-    <main>
-      <h1>Black Women in History</h1>
+    <Container maxWidth="lg">
+      <Typography
+        variant="h4"
+        fontWeight={700}
+        sx={{ mt: 6, mb: 4 }}
+      >
+        Black Women in History
+      </Typography>
 
-      {women.map((woman) => (
-        <div key={woman.slug}>{woman.title}</div>
-      ))}
-    </main>
+      <WomenGrid />
+    </Container>
   )
 }
