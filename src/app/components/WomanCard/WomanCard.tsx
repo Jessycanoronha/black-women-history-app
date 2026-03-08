@@ -1,17 +1,23 @@
-import { Card, CardContent, Typography, CardMedia } from "@mui/material"
+import { Card, CardContent, Typography, Box, Skeleton } from "@mui/material"
+import { useState } from "react"
 
-type Props = {
-  woman?: {
-    title?: string
-    metadata?: {
-      image?: {
-        url?: string
-      }
+type Woman = {
+  id?: string
+  title?: string
+  metadata?: {
+    image?: {
+      url?: string
     }
   }
 }
 
+type Props = {
+  woman?: Woman
+}
+
 export default function WomanCard({ woman }: Props) {
+  const [loaded, setLoaded] = useState(false)
+
   const imageUrl =
     woman?.metadata?.image?.url ||
     `https://ui-avatars.com/api/?name=${encodeURIComponent(
@@ -22,27 +28,60 @@ export default function WomanCard({ woman }: Props) {
     <Card
       sx={{
         width: 260,
-        overflow: "hidden",
         borderRadius: 1,
-        transition: "all .3s ease",
-
+        overflow: "hidden",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+        transition: "all 0.3s ease",
         "&:hover": {
           transform: "translateY(-6px)",
           boxShadow: "0 12px 30px rgba(0,0,0,0.12)",
         },
       }}
     >
-      <CardMedia
-        component="img"
-        image={imageUrl}
-        alt={woman?.title}
+      <Box
         sx={{
-          height: 220,
+          position: "relative",
           width: "100%",
-          objectFit: "cover",
-          objectPosition:"center 30%"
+          paddingTop: "80.25%",
+          overflow: "hidden",
         }}
-      />
+      >
+        {!loaded && (
+          <Skeleton
+            variant="rectangular"
+            animation="wave"
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+            }}
+          />
+        )}
+
+        <img
+          src={imageUrl}
+          alt={woman?.title}
+          loading="lazy"
+          onLoad={() => setLoaded(true)}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center 20%",
+
+            opacity: loaded ? 1 : 0,
+            filter: loaded ? "blur(0px)" : "blur(12px)",
+            transform: loaded ? "scale(1)" : "scale(1.05)",
+
+            transition:
+              "opacity 0.5s ease, filter 0.4s ease, transform 0.6s ease",
+          }}
+        />
+      </Box>
 
       <CardContent>
         <Typography variant="h6" fontWeight={600}>
