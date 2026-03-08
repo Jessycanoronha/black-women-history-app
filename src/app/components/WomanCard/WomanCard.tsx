@@ -21,10 +21,15 @@ export default function WomanCard({ woman }: Props) {
   return (
     <Card
       sx={{
-        borderRadius: 1,
+        width: 260,
         overflow: "hidden",
-        boxShadow: 3,
-        width: 250
+        borderRadius: 1,
+        transition: "all .3s ease",
+
+        "&:hover": {
+          transform: "translateY(-6px)",
+          boxShadow: "0 12px 30px rgba(0,0,0,0.12)",
+        },
       }}
     >
       <CardMedia
@@ -40,7 +45,7 @@ export default function WomanCard({ woman }: Props) {
       />
 
       <CardContent>
-        <Typography variant="h6">
+        <Typography variant="h6" fontWeight={600}>
           {woman?.title}
         </Typography>
       </CardContent>
