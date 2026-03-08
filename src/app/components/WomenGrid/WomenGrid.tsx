@@ -1,11 +1,14 @@
 "use client"
 
+import { useState } from "react"
 import { Box, Grid, Pagination, Stack } from "@mui/material"
 import WomanCard from "../WomanCard/WomanCard"
 import { useWomen } from "@/features/women/hooks/useWomen"
 
 export default function WomenGrid() {
-  const { data, isLoading } = useWomen()
+  const [page, setPage] = useState(1)
+
+  const { data, isLoading } = useWomen(page)
 
   if (isLoading) return <p>Loading...</p>
 
@@ -19,10 +22,10 @@ export default function WomenGrid() {
       }}
     >
       <Grid container spacing={4}>
-        {data?.map((woman) => (
+        {data?.data.map((woman) => (
           <Grid
-            size={{ xs: 3 }}
             key={woman.id}
+            size={{ xs: 3 }}
             sx={{
               display: "flex",
               justifyContent: "center",
@@ -34,7 +37,12 @@ export default function WomenGrid() {
       </Grid>
 
       <Stack alignItems="center" sx={{ mt: 5 }}>
-        <Pagination count={10} color="primary" />
+        <Pagination
+          page={page}
+          count={data?.totalPages ?? 1}
+          color="primary"
+          onChange={(_, value) => setPage(value)}
+        />
       </Stack>
     </Box>
   )
