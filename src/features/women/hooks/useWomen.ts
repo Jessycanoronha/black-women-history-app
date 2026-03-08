@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query"
 import { getWomen } from "../services/womenApi"
 
-export function useWomen() {
+export function useWomen(page: number) {
   return useQuery({
-    queryKey: ["women"],
-    queryFn: getWomen,
+    queryKey: ["women", page],
+    queryFn: () => getWomen(page),
+    placeholderData: (prev) => prev
   })
 }

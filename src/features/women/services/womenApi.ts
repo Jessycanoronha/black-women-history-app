@@ -1,19 +1,18 @@
 import { Woman } from "../types/woman"
-import { WomenApiResponse } from "../types/womanApiResponse"
 
-export async function getWomen(): Promise<Woman[]> {
-  const res = await fetch(
-    "https://theblackwomanhistory.firebaseio.com/.json",
-    {
-      next: { revalidate: 3600 },
-    }
-  )
+export interface WomenResponse {
+  data: Woman[]
+  page: number
+  total: number
+  totalPages: number
+}
+
+export async function getWomen(page = 1): Promise<WomenResponse> {
+  const res = await fetch(`/api/women?page=${page}&limit=12`)
 
   if (!res.ok) {
     throw new Error("Failed to fetch women data")
   }
 
-  const data: WomenApiResponse = await res.json()
-
-  return data.content.sort((a, b) => a.order - b.order)
+  return res.json()
 }
