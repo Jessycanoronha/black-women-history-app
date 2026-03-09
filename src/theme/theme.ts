@@ -3,38 +3,26 @@ import { PaletteColorOptions } from "@mui/material"
 
 declare module "@mui/material/styles" {
   interface Palette {
-    tertiary: Palette['primary']
+    tertiary: Palette['primary'],
+    appBar: string
+
   }
   interface PaletteOptions {
-    tertiary?: PaletteColorOptions
+    tertiary?: PaletteColorOptions,
+    appBar?: string
   }
 }
-export const theme = createTheme({
+
+export const lightTheme = createTheme({
   palette: {
     mode: "light",
-    tertiary: {
-      main: "#FF6F61",
-    },
-    primary: {
-      main: "#6A1B9A",
-      light: "#9C4DCC",
-      dark: "#38006B",
-      contrastText: "#ffffff",
-    },
+    tertiary: { main: "#FF6F61" },
+    primary: { main: "#6A1B9A", light: "#9C4DCC", dark: "#38006B", contrastText: "#fff" },
+    secondary: { main: "#AB47BC" },
+    background: { default: "#F5F3F7", paper: "#ffffff" },
+    text: { primary: "#1C1C1C", secondary: "#6B6B6B" },
+    appBar: "#fff"
 
-    secondary: {
-      main: "#AB47BC",
-    },
-
-    background: {
-      default: "#F5F3F7",
-      paper: "#ffffff",
-    },
-
-    text: {
-      primary: "#1C1C1C",
-      secondary: "#6B6B6B",
-    },
   },
   typography: {
     fontFamily: "Inter, system-ui, sans-serif",
@@ -44,11 +32,7 @@ export const theme = createTheme({
     body2: { fontSize: "0.875rem", lineHeight: 1.5 },
     button: { textTransform: "none", fontWeight: 600 },
   },
-
-  shape: {
-    borderRadius: 12,
-  },
-
+  shape: { borderRadius: 12 },
   components: {
     MuiCard: {
       styleOverrides: {
@@ -56,32 +40,35 @@ export const theme = createTheme({
           borderRadius: 16,
           boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
           transition: "transform 0.3s ease, box-shadow 0.3s ease",
-          "&:hover": {
-            transform: "translateY(-4px)",
-            boxShadow: "0 12px 32px rgba(0,0,0,0.12)",
-          },
+          "&:hover": { transform: "translateY(-4px)", boxShadow: "0 12px 32px rgba(0,0,0,0.12)" },
         },
       },
     },
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          borderRadius: 8,
-        },
-      },
-    },
+    MuiTextField: { styleOverrides: { root: { borderRadius: 8 } } },
     MuiButton: {
       styleOverrides: {
         root: {
           borderRadius: 12,
           padding: "10px 20px",
           transition: "all 0.3s ease",
-          "&:hover": {
-            transform: "scale(1.03)",
-          }
-        }
-
+          "&:hover": { transform: "scale(1.03)" },
+        },
       },
     },
   },
+})
+
+export const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+    tertiary: { main: "#FF8C75" },
+    primary: { main: "#9C4DCC", light: "#B469E0", dark: "#6A1B9A", contrastText: "#fff" },
+    secondary: { main: "#AB47BC" },
+    background: { default: "#0a0a0a", paper: "#0a0a0a" },
+    appBar: "transparent",
+    text: { primary: "#ffffff", secondary: "#B0B0B0" },
+  },
+  typography: lightTheme.typography,
+  shape: lightTheme.shape,
+  components: lightTheme.components,
 })

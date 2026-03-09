@@ -13,17 +13,21 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material"
-
+import Brightness4Icon from "@mui/icons-material/Brightness4"
+import Brightness7Icon from "@mui/icons-material/Brightness7"
 import MenuIcon from "@mui/icons-material/Menu"
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline"
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined"
 import Link from "next/link"
-import { useState } from "react"
+import { useMemo, useState } from "react"
+import { useThemeContext } from "@/theme/ThemeContext"
 
 export default function Header() {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const { darkMode, toggleDarkMode } = useThemeContext()
+
 
   const menuItems = [
     { label: "Home", href: "/" },
@@ -31,7 +35,9 @@ export default function Header() {
     { label: "Stories", href: "/stories" },
     { label: "About", href: "/about" },
   ]
-
+  const imageUrl = useMemo(() => {
+    return "/images/african-woman.png";
+  }, []);
   return (
     <Box sx={{ position: "sticky", top: 20, zIndex: 1000 }}>
       <Container maxWidth="lg">
@@ -43,13 +49,12 @@ export default function Header() {
             padding: "12px 24px",
             borderRadius: "999px",
             border: isMobile ? "none" : `1px solid ${theme.palette.divider}`,
-            backgroundColor: isMobile ? "transparent" : "white",
+            backgroundColor: isMobile ? "transparent" : theme.palette.appBar,
             boxShadow: isMobile ? "none" : "0 10px 30px rgba(0,0,0,0.08)",
           }}
         >
-
-         <img src="images/african-woman.png" alt="" height={50}/>
-            <Typography
+          <img src={imageUrl} alt="" height={50} />
+          <Typography
             variant="h6"
             sx={{ fontWeight: 700, color: "primary.main", pl: 3 }}
           >
@@ -67,6 +72,9 @@ export default function Header() {
                   <ShoppingCartOutlinedIcon />
                 </IconButton>
               </Box>
+              <IconButton color="primary" onClick={toggleDarkMode}>
+                {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+              </IconButton>
               <IconButton
                 color="primary"
                 onClick={() => setDrawerOpen(true)}
@@ -124,6 +132,9 @@ export default function Header() {
               </Box>
               <IconButton color="primary">
                 <PersonOutlineIcon />
+              </IconButton>
+              <IconButton color="primary" onClick={toggleDarkMode}>
+                {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
               </IconButton>
             </Stack>
           )}
