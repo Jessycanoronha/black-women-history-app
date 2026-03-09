@@ -7,30 +7,33 @@ export interface WomenResponse {
   totalPages: number
 }
 
-export async function getWomen(page = 1): Promise<WomenResponse> {
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
-const res = await fetch(`${baseUrl}/api/women?page=${page}&limit=12`)
-  if (!res.ok) {
-    throw new Error("Failed to fetch women data")
-  }
+const BFF_BASE_URL = process.env.NEXT_PUBLIC_BFF_URL || "http://localhost:3000"
 
+export async function getWomen(page = 1, limit = 12): Promise<WomenResponse> {
+  const url = `${BFF_BASE_URL}/api/women?page=${page}&limit=${limit}`
+
+  const res = await fetch(url)
+  if (!res.ok) {
+    const errData = await res.json().catch(() => null)
+    throw new Error(errData?.error || "Failed to fetch women data from BFF")
+  }
   return res.json()
 }
 
+const CONTENT_BASE_URL =
+  typeof window !== "undefined"
+    ? process.env.NEXT_PUBLIC_CONTENT_URL
+    : process.env.NEXT_PUBLIC_CONTENT_URL || ""
+
 export async function getWomanDetail(order: number): Promise<Woman> {
   const res = await fetch(
-    `https://theblackwomanhistory.firebaseio.com/content/${order}.json`
+    `${CONTENT_BASE_URL}/content/${order}.json`
   );
 
   if (!res.ok) {
-    let errorMessage = "Failed to fetch woman detail";
-    try {
-      const errData = await res.json();
-      errorMessage = errData?.error || errorMessage;
-    } catch { }
-    throw new Error(errorMessage);
+    const errData = await res.json().catch(() => null)
+    throw new Error(errData?.error || "Failed to fetch woman detail")
   }
 
-  const data: Woman = await res.json();
-  return data;
+  return res.json()
 }
