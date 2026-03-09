@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Box, Grid, Pagination, Stack, Skeleton } from "@mui/material"
+import { Box, Grid, Pagination, Stack, Skeleton, useTheme } from "@mui/material"
 import WomanCard from "../WomanCard/WomanCard"
 import { useWomen } from "@/app/women/hooks/useWomen"
 import { Woman } from "@/app/women/types/woman"
@@ -11,6 +11,8 @@ type Props = {
 }
 
 export default function WomenGrid({ women: initialWomen }: Props) {
+  const theme = useTheme()
+
   const [page, setPage] = useState(1)
   const { data, isLoading, isError } = useWomen(page)
 
@@ -21,9 +23,12 @@ export default function WomenGrid({ women: initialWomen }: Props) {
   return (
     <Box
       sx={{
-        background: "#fff",
+        background: theme.palette.mode === "light"
+          ? "#fff"
+          : theme.palette.background.default,
         borderRadius: 3,
-        border: "1px solid #eee",
+        border: theme.palette.mode === "light"
+          ? "1px solid #eee": "",
         padding: 4,
       }}
     >
