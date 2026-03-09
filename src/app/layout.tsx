@@ -15,6 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <title>Black Women in History</title>
+      </head>
       <body className={inter.className}>
         <AppRouterCacheProvider>
           <ThemeRegistry>
