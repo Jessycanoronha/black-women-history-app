@@ -5,6 +5,7 @@ export function useWomen(page: number) {
   return useQuery({
     queryKey: ["women", page],
     queryFn: () => getWomen(page),
-    placeholderData: (prev) => prev
+    placeholderData: (prev) => prev,
+    staleTime: 60_000,
   })
 }
