@@ -1,15 +1,6 @@
-import { Card, CardContent, Typography, Box, Skeleton } from "@mui/material"
+import { Woman } from "@/app/women/types/woman"
+import { Card, CardContent, Typography, Box, Skeleton, Link, Button } from "@mui/material"
 import { useState } from "react"
-
-type Woman = {
-  id?: string
-  title?: string
-  metadata?: {
-    image?: {
-      url?: string
-    }
-  }
-}
 
 type Props = {
   woman?: Woman
@@ -87,6 +78,12 @@ export default function WomanCard({ woman }: Props) {
         <Typography variant="h6" fontWeight={600}>
           {woman?.title}
         </Typography>
+        <Link href={`/women/${woman?.order}`} style={{ textDecoration: "none" }}>
+
+          <Button variant="outlined" size="small" fullWidth>
+            Ver Detalhes
+          </Button>
+        </Link>
       </CardContent>
     </Card>
   )
