@@ -1,6 +1,7 @@
 import { Woman } from "@/app/women/types/woman"
 import { Card, CardContent, Typography, Box, Skeleton, Link, Button } from "@mui/material"
 import { useState } from "react"
+import getWomanImage from "../../utils/getWomanImage"
 
 type Props = {
   woman?: Woman
@@ -10,11 +11,7 @@ export default function WomanCard({ woman }: Props) {
   const [loaded, setLoaded] = useState(false)
 
   const imageUrl =
-    woman?.metadata?.image?.url ||
-    `https://ui-avatars.com/api/?name=${encodeURIComponent(
-      woman?.title ?? "Woman"
-    )}&background=6A1B9A&color=fff`
-
+    getWomanImage(woman!)
   return (
     <Card
       sx={{
@@ -74,16 +71,23 @@ export default function WomanCard({ woman }: Props) {
         />
       </Box>
 
-      <CardContent>
+      <CardContent sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 1,
+      }}>
         <Typography variant="h6" fontWeight={600}>
           {woman?.title}
         </Typography>
-        <Link href={`/women/${woman?.order}`} style={{ textDecoration: "none" }}>
+        <Box sx={{ mt: "auto", display: "flex", alignContent: "flex-end", justifyContent: "center" }}>
 
-          <Button variant="outlined" size="small" fullWidth>
-            Ver Detalhes
-          </Button>
-        </Link>
+          <Link href={`/women/${woman?.order}`} style={{ textDecoration: "none" }}>
+
+            <Button variant="outlined" size="small" aria-label={`Ver detalhes de ${woman?.title}`} fullWidth>
+              Ver Detalhes
+            </Button>
+          </Link>
+        </Box>
       </CardContent>
     </Card>
   )
