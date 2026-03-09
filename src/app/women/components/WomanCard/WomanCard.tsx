@@ -84,7 +84,7 @@ export default function WomanCard({ woman }: Props) {
           <Link href={`/women/${woman?.order}`} style={{ textDecoration: "none" }}>
 
             <Button variant="outlined" size="small" aria-label={`Ver detalhes de ${woman?.title}`} fullWidth>
-              Ver Detalhes
+              See Details
             </Button>
           </Link>
         </Box>

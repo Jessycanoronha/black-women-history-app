@@ -26,10 +26,10 @@ export default function Header() {
   const [drawerOpen, setDrawerOpen] = useState(false)
 
   const menuItems = [
-    { label: "Início", href: "/" },
-    { label: "Mulheres", href: "/women" },
-    { label: "Histórias", href: "/stories" },
-    { label: "Sobre", href: "/about" },
+    { label: "Home", href: "/" },
+    { label: "Women", href: "/women" },
+    { label: "Stories", href: "/stories" },
+    { label: "About", href: "/about" },
   ]
 
   return (
@@ -47,11 +47,13 @@ export default function Header() {
             boxShadow: isMobile ? "none" : "0 10px 30px rgba(0,0,0,0.08)",
           }}
         >
-          <Typography
+
+         <img src="images/african-woman.png" alt="" height={50}/>
+            <Typography
             variant="h6"
-            sx={{ fontWeight: 700, color: "primary.main" }}
+            sx={{ fontWeight: 700, color: "primary.main", pl: 3 }}
           >
-            Mulheres Negras
+            Black Women
           </Typography>
 
 
