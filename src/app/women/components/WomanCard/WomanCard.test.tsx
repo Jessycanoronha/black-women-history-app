@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import WomanCard from "./WomanCard"
 import { LoremIpsum } from "lorem-ipsum"
 
@@ -25,5 +26,21 @@ describe("WomanCard", () => {
     render(<WomanCard woman={womanMock} />)
     const image = screen.getByRole("img")
     expect(image).toHaveAttribute("src", "/images/ada.png")
+  })
+
+  it("renders fallback avatar when no image url", () => {
+    const womanWithoutImage = { ...womanMock, metadata: { image: { url: undefined } } }
+    render(<WomanCard woman={womanWithoutImage} />)
+    const image = screen.getByRole("img")
+    expect(image).toHaveAttribute(
+      "src",
+      expect.stringContaining("https://ui-avatars.com/api/?name=")
+    )
+  })
+
+  it("button is clickable", async () => {
+    render(<WomanCard woman={womanMock} />)
+    const button = screen.getByRole("button", { name: /ver detalhes de ada lovelace/i })
+    await userEvent.click(button)
   })
 })
