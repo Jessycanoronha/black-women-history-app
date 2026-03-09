@@ -1,16 +1,17 @@
-export type Woman = {
+export interface WomanMetadata {
+  image?: { url?: string }
+  birthdate?: string
+  deathdate?: string
+  country?: string
+  credits?: string
+}
+
+export interface Woman {
   id: string
+  order: number
+  slug: string
   title: string
   description: string
-  slug: string
-  order: number
-  metadata?: {
-    birth?: string
-    death?: string
-    nationality?: string
-    image?: {
-      url: string
-    }
-  }
+  metadata?: WomanMetadata
 }
 
