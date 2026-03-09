@@ -23,7 +23,7 @@ export default function WomanDetailPage() {
       </Typography>
 
       <img
-        src={woman?.metadata?.image?.url || "public/images/not-found.png"}
+        src={woman?.metadata?.image?.url || "images/not-found.png"}
         alt={woman?.title}
         style={{ width: "100%", borderRadius: 8, marginBottom: 24 }}
       />
