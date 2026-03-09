@@ -1,7 +1,7 @@
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter"
 import ThemeRegistry from "@/theme/ThemeRegistry"
 import ReactQueryProvider from "@/lib/react-query/provider"
-import Header from "./components/Header/Header"
+import Header from "./women/components/Header/Header"
 import { Inter } from "next/font/google"
 
 const inter = Inter({
