@@ -7,7 +7,7 @@ export interface WomenResponse {
   totalPages: number
 }
 
-const BFF_BASE_URL = process.env.NEXT_PUBLIC_BFF_URL || "http://localhost:3000"
+const BFF_BASE_URL = process.env.NEXT_PUBLIC_BFF_URL
 
 export async function getWomen(page = 1, limit = 12): Promise<WomenResponse> {
   const url = `${BFF_BASE_URL}/api/women?page=${page}&limit=${limit}`
