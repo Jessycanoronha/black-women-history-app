@@ -1,7 +1,10 @@
 import { Container, Typography } from "@mui/material"
-import WomenGrid from "./components/WomenGrid/WomenGrid"
+import { WomenResponse, getWomen } from "./women/services/womenApi"
+import WomenGrid from "./women/components/WomenGrid/WomenGrid"
 
-export default function Home() {
+export default async function Home() {
+  const { data: women }: WomenResponse = await getWomen(1)
+
   return (
     <Container maxWidth="lg">
       <Typography
@@ -12,7 +15,7 @@ export default function Home() {
         Black Women in History
       </Typography>
 
-      <WomenGrid />
+      <WomenGrid women={women} />
     </Container>
   )
 }
