@@ -1,6 +1,7 @@
 ## 📚 **Black Women History**
 
 A Next.js application showcasing historical Black women, consuming data from Firebase Realtime Database. Features include Dark Mode, Material UI, pagination, and tests with React Testing Library.
+I used the[ Black woman history API](http://theblackwomenhistoryapi.com/)
 
 ### 🏗 Technologies
 
@@ -54,6 +55,25 @@ To run tests:
 ```
 
 The project uses React Testing Library with Jest.
+
+### 🗂 Project Structure
+
+```
+/app
+  /api              # BFF endpoints (WIP) - Not worked as I expected yet :/
+  /women            # List and detail pages
+    /components     # Reusable components (Header, Card, etc.)
+    /hooks          # Custom hooks (useWomanDetail, useWomen)
+    /[id]           # Details
+    /services
+    /types
+    /utils
+
+/theme
+  theme.ts
+  ThemeContext.tsx
+  ThemeRegistry.tsx
+```
 
 
 **Developed by Jéssyca**🤘🏿❤️
